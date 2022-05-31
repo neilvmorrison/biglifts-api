@@ -12,7 +12,7 @@ dotenv.config();
 AppDataSource.initialize()
   .then(async () => {
     const app: Koa = new Koa();
-    const PORT: number = parseInt(process.env.PORT) || 4000;
+    const PORT: number = parseInt(process.env.PORT as string) || 4000;
 
     app.use(logger());
     app.use(bodyParser());

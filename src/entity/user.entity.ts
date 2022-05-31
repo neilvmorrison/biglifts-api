@@ -1,4 +1,5 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
+import { IsEmail, IsOptional, MinLength } from "class-validator";
 import { BaseEntity } from "./base.entity";
 import { Metric } from "./metric.entity";
 import { Set } from "./set.entity";
@@ -12,11 +13,18 @@ export class User extends BaseEntity {
   @Column()
   last_name: string;
 
-  @Column({ default: "" })
+  @Column({ nullable: true })
   middle_name: string;
 
-  @Column()
+  @Column({ nullable: true })
   birthdate: Date;
+
+  @Column({ unique: true })
+  @IsEmail()
+  email: string;
+
+  @Column()
+  password: string;
 
   // ugh I hate that I have to write this but Canada sucks with measurement.
   @Column({ default: false })
@@ -30,4 +38,11 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Set, (set) => set)
   sets: Set[];
+
+  @ManyToMany(() => User, (user) => user.following)
+  @JoinTable()
+  followers: User[];
+
+  @ManyToMany(() => User, (user) => user.followers)
+  following: User[];
 }

@@ -4,7 +4,7 @@ import testService from "../services/test.service";
 const router = new Router({ prefix: "/test" });
 
 router.get("/", async (ctx) => {
-  ctx.body = "Test!";
+  ctx.body = await testService.findAll();
 });
 
 router.post("/", async (ctx) => {
