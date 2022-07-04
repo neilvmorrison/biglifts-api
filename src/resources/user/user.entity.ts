@@ -1,9 +1,9 @@
 import { Column, Entity, JoinTable, ManyToMany, OneToMany } from "typeorm";
 import { IsEmail, IsOptional, MinLength } from "class-validator";
-import { BaseEntity } from "./base.entity";
-import { Metric } from "./metric.entity";
-import { Set } from "./set.entity";
-import { Workout } from "./workout.entity";
+import { BaseEntity } from "../base/base.entity";
+import { Metric } from "../metric/metric.entity";
+import { Set } from "../set/set.entity";
+import { Workout } from "../workout/workout.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -30,10 +30,10 @@ export class User extends BaseEntity {
   @Column({ default: false })
   prefers_metric: boolean;
 
-  @OneToMany(() => Metric, (metric) => metric)
+  @OneToMany(() => Metric, (metric) => metric.user)
   metrics: Metric[];
 
-  @OneToMany(() => Workout, (workout) => workout)
+  @OneToMany(() => Workout, (workout) => workout.user)
   workouts: Workout[];
 
   @OneToMany(() => Set, (set) => set)

@@ -1,7 +1,7 @@
 import { Entity, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm";
-import { BaseEntity } from "./base.entity";
-import { Set } from "./set.entity";
-import { User } from "./user.entity";
+import { BaseEntity } from "../base/base.entity";
+import { Set } from "../set/set.entity";
+import { User } from "../user/user.entity";
 
 @Entity()
 export class Workout extends BaseEntity {
@@ -11,13 +11,13 @@ export class Workout extends BaseEntity {
   @Column()
   is_complete: boolean;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   notes: string;
 
   @ManyToOne(() => User, (user) => user.id)
   @JoinColumn()
   user: User;
 
-  @OneToMany(() => Set, (set) => set)
+  @OneToMany(() => Set, (set) => set.workout)
   sets: Set[];
 }

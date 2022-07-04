@@ -1,8 +1,9 @@
 import { DeepPartial } from "typeorm";
-import { compareHash, generateHash } from "../utils/hash";
-import { User } from "../entity/user.entity";
-import { CrudService } from "./base.service";
-import { generateToken } from "../utils/token";
+import { compareHash, generateHash } from "../../utils/hash";
+import { User } from "./user.entity";
+import { BaseService } from "../base/base.service";
+import { generateToken } from "../../utils/token";
+import { HttpError } from "../../error";
 
 type AuthenticatedResult = {
   isAuthenticated: boolean;
@@ -11,7 +12,7 @@ type AuthenticatedResult = {
 };
 
 export class UserService {
-  service: CrudService<User>;
+  service: BaseService<User>;
   constructor(service) {
     this.service = service;
   }
@@ -31,7 +32,10 @@ export class UserService {
   }
 
   async getUserById(id: string): Promise<User> {
-    return this.service.findOneBy({ id });
+    return this.service.findOne({
+      where: { id },
+      relations: ["following", "followers"],
+    });
   }
 
   async updateUser(id: string, payload: DeepPartial<User>) {
@@ -44,6 +48,7 @@ export class UserService {
   ): Promise<AuthenticatedResult> {
     const user = await this.getUserByEmail(email);
     const matchingPass = await compareHash(password, user.password);
+    console.log();
     if (user && matchingPass) {
       const token = generateToken();
       delete user.password;
@@ -52,22 +57,24 @@ export class UserService {
         token,
         user,
       };
+    } else {
+      throw new HttpError(401, "Unauthorized");
     }
   }
 
-  async followUser(following_id: string, follower_id: string): Promise<any> {
+  async followUser(user_id: string, user_to_follow: string): Promise<any> {
     const payload = {
       following: [
         {
-          id: following_id,
+          id: user_to_follow,
         },
       ],
     };
-    return this.updateUser(follower_id, payload);
+    return this.updateUser(user_id, payload);
   }
 }
 
-const crudService = new CrudService(User);
+const crudService = new BaseService(User);
 const userService = new UserService(crudService);
 
 export default userService;

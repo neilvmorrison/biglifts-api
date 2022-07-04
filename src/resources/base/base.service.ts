@@ -5,10 +5,11 @@ import {
   FindOptionsWhere,
   DeepPartial,
   DeleteResult,
+  InsertResult,
 } from "typeorm";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../../data-source";
 
-export class CrudService<Entity> {
+export class BaseService<Entity> {
   private repository: Repository<Entity>;
 
   constructor(entity) {
@@ -16,6 +17,10 @@ export class CrudService<Entity> {
   }
 
   async create(payload): Promise<Entity> {
+    return this.repository.save(payload);
+  }
+
+  async createMany(payload): Promise<Entity[]> {
     return this.repository.save(payload);
   }
 

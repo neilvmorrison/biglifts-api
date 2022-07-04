@@ -1,7 +1,7 @@
-import { MajorGroup } from "entity/exercise.entity";
+import { MajorGroup } from "../exercise/exercise.entity";
 import { Context } from "koa";
 import Router from "koa-router";
-import exerciseService from "../services/exercise.service";
+import exerciseService from "../exercise/exercise.service";
 
 const router = new Router({ prefix: "/exercise" });
 

@@ -1,4 +1,4 @@
-import { User } from "../entity/user.entity";
+import { User } from "../user/user.entity";
 
 export type AuthenticationResult = {
   user?: User;

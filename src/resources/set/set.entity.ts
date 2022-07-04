@@ -1,13 +1,13 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
-import { BaseEntity } from "./base.entity";
-import { Exercise } from "./exercise.entity";
-import { UnitTypes } from "./metric.entity";
-import { User } from "./user.entity";
-import { Workout } from "./workout.entity";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { BaseEntity } from "../base/base.entity";
+import { Exercise } from "../exercise/exercise.entity";
+import { UnitTypes } from "../metric/metric.entity";
+import { User } from "../user/user.entity";
+import { Workout } from "../workout/workout.entity";
 
 @Entity()
 export class Set extends BaseEntity {
-  @OneToOne(() => Exercise, (exercise) => exercise.id)
+  @ManyToOne(() => Exercise, (exercise) => exercise.id)
   @JoinColumn()
   exercise: Exercise;
 

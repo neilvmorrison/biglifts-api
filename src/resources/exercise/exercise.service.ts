@@ -1,8 +1,8 @@
-import { Exercise, MajorGroup } from "../entity/exercise.entity";
-import { CrudService } from "./base.service";
+import { Exercise, MajorGroup } from "../exercise/exercise.entity";
+import { BaseService } from "../base/base.service";
 
 export class ExerciseService {
-  service: CrudService<Exercise>;
+  service: BaseService<Exercise>;
 
   constructor(service) {
     this.service = service;
@@ -25,7 +25,7 @@ export class ExerciseService {
   }
 }
 
-const exerciseCrudService = new CrudService(Exercise);
+const exerciseCrudService = new BaseService(Exercise);
 const exerciseService = new ExerciseService(exerciseCrudService);
 
 export default exerciseService;

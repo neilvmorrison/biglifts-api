@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import bodyParser from "koa-bodyparser";
 import logger from "koa-logger";
 import "reflect-metadata";
+
+import { handleError } from "./error/middleware";
 import { AppDataSource } from "./data-source";
 
 import router from "./routes";
@@ -15,6 +17,7 @@ AppDataSource.initialize()
     const PORT: number = parseInt(process.env.PORT as string) || 4000;
 
     app.use(logger());
+    app.use(handleError);
     app.use(bodyParser());
     app.use(router);
 

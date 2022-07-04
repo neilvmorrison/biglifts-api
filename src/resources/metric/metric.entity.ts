@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
-import { BaseEntity } from "./base.entity";
-import { User } from "./user.entity";
+import { BaseEntity } from "../base/base.entity";
+import { User } from "../user/user.entity";
 
 export type UnitTypes = "IMPERIAL" | "METRIC";
 export type MetricType = "TIME" | "WEIGHT" | "REP_MAX";

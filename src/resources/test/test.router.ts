@@ -1,5 +1,5 @@
 import Router from "koa-router";
-import testService from "../services/test.service";
+import testService from "./test.service";
 
 const router = new Router({ prefix: "/test" });
 

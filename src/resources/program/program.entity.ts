@@ -6,9 +6,9 @@ import {
   ManyToOne,
   ManyToMany,
 } from "typeorm";
-import { BaseEntity } from "./base.entity";
-import { Exercise } from "./exercise.entity";
-import { User } from "./user.entity";
+import { BaseEntity } from "../base/base.entity";
+import { Exercise } from "../exercise/exercise.entity";
+import { User } from "../user/user.entity";
 
 @Entity()
 export class Program extends BaseEntity {
@@ -25,7 +25,7 @@ export class Program extends BaseEntity {
   @JoinColumn()
   author: User;
 
-  @ManyToMany(() => Exercise, (exercise) => exercise.id)
+  @ManyToMany(() => Exercise, (exercise) => exercise)
   @JoinTable()
   core_exercises: Exercise[];
 }

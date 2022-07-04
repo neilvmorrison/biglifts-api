@@ -1,6 +1,6 @@
 import { Context } from "koa";
 import Router from "koa-router";
-import userService from "../services/user.service";
+import userService from "./user.service";
 
 const router = new Router({ prefix: "/user" });
 
@@ -21,7 +21,6 @@ router.post("/", async (ctx: Context) => {
 
 router.post("/authenticate", async (ctx: Context) => {
   const { email, password } = ctx.request.body;
-  console.log(email, password);
   ctx.body = await userService.authenticateUser(email, password);
 });
 

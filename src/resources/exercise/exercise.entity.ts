@@ -1,6 +1,5 @@
-import { Column, Entity, ManyToOne } from "typeorm";
-import { BaseEntity } from "./base.entity";
-import { Program } from "./program.entity";
+import { Column, Entity } from "typeorm";
+import { BaseEntity } from "../base/base.entity";
 
 export type ChestGroup = "PECTORAL";
 export type BackGroup = "MIDDLE_BACK" | "LOWER_BACK" | "SHOULDER_ROTATOR";

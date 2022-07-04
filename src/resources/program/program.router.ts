@@ -1,6 +1,6 @@
 import { Context } from "koa";
 import Router from "koa-router";
-import programService from "../services/program.service";
+import programService from "./program.service";
 
 const router = new Router({ prefix: "/program" });
 

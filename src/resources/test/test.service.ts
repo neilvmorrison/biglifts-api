@@ -1,8 +1,8 @@
-import { Test } from "../entity/test.entity";
-import { CrudService } from "./base.service";
+import { Test } from "./test.entity";
+import { BaseService } from "../base/base.service";
 
 export class TestService {
-  service: CrudService<Test>;
+  service: BaseService<Test>;
 
   constructor(service) {
     this.service = service;
@@ -17,7 +17,7 @@ export class TestService {
   }
 }
 
-const crudService = new CrudService(Test);
+const crudService = new BaseService(Test);
 const testService = new TestService(crudService);
 
 export default testService;
