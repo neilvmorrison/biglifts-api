@@ -3,8 +3,8 @@ import { config } from "dotenv";
 
 config();
 
-export function generateToken(): string {
-  return "thisismytoken";
+export function generateToken(user_id: string): string {
+  return jwt.sign({ user_id }, process.env.JWT_SECRET, { expiresIn: "72h" });
 }
 
 export function verifyToken(token: string): boolean {

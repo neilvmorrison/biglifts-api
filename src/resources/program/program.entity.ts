@@ -21,8 +21,7 @@ export class Program extends BaseEntity {
   @Column({ nullable: true })
   avatar_url: string;
 
-  @ManyToOne(() => User, (user) => user.id)
-  @JoinColumn()
+  @ManyToOne(() => User, (user) => user.programs)
   author: User;
 
   @ManyToMany(() => Exercise, (exercise) => exercise)

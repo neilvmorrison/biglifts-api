@@ -4,11 +4,11 @@ import bodyParser from "koa-bodyparser";
 import logger from "koa-logger";
 import "reflect-metadata";
 
-import { handleError } from "./error/middleware";
+import { handleError } from "./resources/error/middleware";
 import { AppDataSource } from "./data-source";
 
 import router from "./routes";
-
+import { verifyJWT } from "./resources/auth/auth.middleware";
 dotenv.config();
 
 AppDataSource.initialize()
@@ -17,7 +17,8 @@ AppDataSource.initialize()
     const PORT: number = parseInt(process.env.PORT as string) || 4000;
 
     app.use(logger());
-    app.use(handleError);
+    // app.use(verifyJWT);
+    // app.use(async (ctx, next) => handleError(ctx, next));
     app.use(bodyParser());
     app.use(router);
 

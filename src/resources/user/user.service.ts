@@ -3,7 +3,7 @@ import { compareHash, generateHash } from "../../utils/hash";
 import { User } from "./user.entity";
 import { BaseService } from "../base/base.service";
 import { generateToken } from "../../utils/token";
-import { HttpError } from "../../error";
+import { HttpError } from "../error";
 
 type AuthenticatedResult = {
   isAuthenticated: boolean;
@@ -40,26 +40,6 @@ export class UserService {
 
   async updateUser(id: string, payload: DeepPartial<User>) {
     return this.service.findOneAndUpdate(id, payload);
-  }
-
-  async authenticateUser(
-    email: string,
-    password: string
-  ): Promise<AuthenticatedResult> {
-    const user = await this.getUserByEmail(email);
-    const matchingPass = await compareHash(password, user.password);
-    console.log();
-    if (user && matchingPass) {
-      const token = generateToken();
-      delete user.password;
-      return {
-        isAuthenticated: true,
-        token,
-        user,
-      };
-    } else {
-      throw new HttpError(401, "Unauthorized");
-    }
   }
 
   async followUser(user_id: string, user_to_follow: string): Promise<any> {

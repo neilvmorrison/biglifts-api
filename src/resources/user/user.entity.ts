@@ -4,6 +4,7 @@ import { BaseEntity } from "../base/base.entity";
 import { Metric } from "../metric/metric.entity";
 import { Set } from "../set/set.entity";
 import { Workout } from "../workout/workout.entity";
+import { Program } from "../program/program.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -45,4 +46,6 @@ export class User extends BaseEntity {
 
   @ManyToMany(() => User, (user) => user.followers)
   following: User[];
+
+  programs: Program[];
 }

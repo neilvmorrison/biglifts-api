@@ -4,6 +4,7 @@ import testService from "./test.service";
 const router = new Router({ prefix: "/test" });
 
 router.get("/", async (ctx) => {
+  console.log(ctx.request);
   ctx.body = await testService.findAll();
 });
 
