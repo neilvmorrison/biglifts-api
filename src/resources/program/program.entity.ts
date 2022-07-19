@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { BaseEntity } from "../base/base.entity";
 import { Exercise } from "../exercise/exercise.entity";
-import { User } from "../user/user.entity";
+import { Profile } from "../profile/profile.entity";
 
 @Entity()
 export class Program extends BaseEntity {
@@ -21,8 +21,8 @@ export class Program extends BaseEntity {
   @Column({ nullable: true })
   avatar_url: string;
 
-  @ManyToOne(() => User, (user) => user.programs)
-  author: User;
+  @ManyToOne(() => Profile, (profile) => profile.programs)
+  author: Profile;
 
   @ManyToMany(() => Exercise, (exercise) => exercise)
   @JoinTable()

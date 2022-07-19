@@ -1,15 +1,7 @@
 import { DeepPartial } from "typeorm";
-import { compareHash, generateHash } from "../../utils/hash";
+import { generateHash } from "../../utils/hash";
 import { User } from "./user.entity";
 import { BaseService } from "../base/base.service";
-import { generateToken } from "../../utils/token";
-import { HttpError } from "../error";
-
-type AuthenticatedResult = {
-  isAuthenticated: boolean;
-  token: string;
-  user: User;
-};
 
 export class UserService {
   service: BaseService<User>;
@@ -34,7 +26,6 @@ export class UserService {
   async getUserById(id: string): Promise<User> {
     return this.service.findOne({
       where: { id },
-      relations: ["following", "followers"],
     });
   }
 
@@ -42,16 +33,16 @@ export class UserService {
     return this.service.findOneAndUpdate(id, payload);
   }
 
-  async followUser(user_id: string, user_to_follow: string): Promise<any> {
-    const payload = {
-      following: [
-        {
-          id: user_to_follow,
-        },
-      ],
-    };
-    return this.updateUser(user_id, payload);
-  }
+  // async followUser(user_id: string, user_to_follow: string): Promise<any> {
+  //   const payload = {
+  //     following: [
+  //       {
+  //         id: user_to_follow,
+  //       },
+  //     ],
+  //   };
+  //   return this.updateUser(user_id, payload);
+  // }
 }
 
 const crudService = new BaseService(User);

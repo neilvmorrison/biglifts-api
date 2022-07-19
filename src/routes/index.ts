@@ -6,6 +6,7 @@ import testRoutes from "../resources/test/test.router";
 import userRoutes from "../resources/user/user.routes";
 import workoutRoutes from "../resources/workout/workout.router";
 import authRoutes from "../resources/auth/auth.router";
+import profileRoutes from "../resources/profile/profile.routes";
 
 const router = new Router();
 
@@ -16,7 +17,8 @@ router.use(
   exerciseRouter,
   programRouter,
   setsRouter,
-  workoutRoutes
+  workoutRoutes,
+  profileRoutes
 );
 
 export default router.routes();

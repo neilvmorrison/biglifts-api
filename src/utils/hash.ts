@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-const SALT_ROUNDS = 10;
+const SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
 
 export async function generateHash(password_string: string): Promise<string> {
   try {

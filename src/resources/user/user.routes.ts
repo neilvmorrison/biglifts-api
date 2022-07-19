@@ -28,10 +28,10 @@ router.patch("/:id", async (ctx: Context) => {
   ctx.body = await userService.updateUser(id, body);
 });
 
-router.patch("/:id/follow", async (ctx: Context) => {
-  const { id } = ctx.params;
-  const { following } = ctx.query;
-  ctx.body = await userService.followUser(id, following as string);
-});
+// router.patch("/:id/follow", async (ctx: Context) => {
+//   const { id } = ctx.params;
+//   const { following } = ctx.query;
+//   ctx.body = await userService.followUser(id, following as string);
+// });
 
 export default router.routes();

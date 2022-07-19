@@ -5,9 +5,13 @@ import {
   FindOptionsWhere,
   DeepPartial,
   DeleteResult,
-  InsertResult,
 } from "typeorm";
 import { AppDataSource } from "../../data-source";
+
+// TO-DO:
+// Add some error handling for the DB interactions.
+// Leave the Http errors to the middleware.
+// Maybe this could also be middleware'd too?
 
 export class BaseService<Entity> {
   private repository: Repository<Entity>;
