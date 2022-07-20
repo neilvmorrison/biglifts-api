@@ -21,7 +21,6 @@ export class AuthService {
     const matchingPass = await compareHash(password, user.password);
     if (user && matchingPass) {
       const token = generateToken(user.id);
-      delete user.password;
       return {
         isAuthenticated: true,
         token,

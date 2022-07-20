@@ -1,5 +1,5 @@
 import { Context, Next } from "koa";
-import { getUserIdFromToken, verifyToken } from "../../utils/token";
+import { verifyToken } from "../../utils/token";
 import { HttpError } from "../error";
 
 const unauthorizedMessage = "Unauthorized";
@@ -7,7 +7,6 @@ const unauthorizedMessage = "Unauthorized";
 export async function verifyJWT(ctx: Context, next: Next) {
   const { authorization } = ctx.request.header || {};
   const token = authorization?.split("Bearer ")[1] || "";
-  console.log({ token, tokenData: getUserIdFromToken(token) });
   if (ctx.request.path === "/auth" || ctx.request.path === "/user") {
     return next();
   } else {

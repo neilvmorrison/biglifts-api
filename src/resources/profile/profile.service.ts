@@ -10,7 +10,10 @@ export class ProfileService {
   }
 
   async getProfile(id: string): Promise<Profile> {
-    const profile = await this.service.findOneBy({ id });
+    const profile = await this.service.findOne({
+      where: { id },
+      relations: ["user"],
+    });
     if (!profile) {
       throw new HttpError(404, "Profile not found");
     }

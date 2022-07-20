@@ -20,7 +20,10 @@ export class UserService {
   }
 
   async getUserByEmail(email: string): Promise<User> {
-    return this.service.findOneBy({ email });
+    return this.service.findOne({
+      where: { email },
+      select: ["email", "password"],
+    });
   }
 
   async getUserById(id: string): Promise<User> {
