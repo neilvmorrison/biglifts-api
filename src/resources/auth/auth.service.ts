@@ -1,7 +1,7 @@
 import { User } from "../user/user.entity";
 import userService from "../user/user.service";
 import { compareHash } from "../../utils/hash";
-import { generateToken } from "../../utils/token";
+import { generateAccessToken } from "../../utils/token";
 import { HttpError } from "../error";
 
 export type AuthenticationResult = {
@@ -20,7 +20,7 @@ export class AuthService {
     }
     const matchingPass = await compareHash(password, user.password);
     if (user && matchingPass) {
-      const token = generateToken(user.id);
+      const token = generateAccessToken(user.id);
       return {
         isAuthenticated: true,
         token,
@@ -31,4 +31,6 @@ export class AuthService {
   }
 
   async logoutUser(): Promise<void> {}
+
+  async hashToken(token: string): Promise<void> {}
 }
