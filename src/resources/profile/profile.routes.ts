@@ -10,8 +10,9 @@ router.get("/:id", async (ctx: Context) => {
 });
 
 router.post("/", async (ctx: Context) => {
+  const { user_id } = ctx.query;
   const { body } = ctx.request;
-  ctx.body = await profileService.createProfile(body);
+  ctx.body = await profileService.createProfile(user_id as string, body);
 });
 
 export default router.routes();

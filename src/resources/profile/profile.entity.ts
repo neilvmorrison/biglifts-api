@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   OneToMany,
@@ -16,6 +17,7 @@ import { BaseEntity } from "../base/base.entity";
 @Entity()
 export class Profile extends BaseEntity {
   @OneToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: "user_id" })
   user: User;
 
   @Column()

@@ -17,7 +17,7 @@ AppDataSource.initialize()
     const PORT: number = parseInt(process.env.PORT as string) || 4000;
 
     app.use(logger());
-    // app.use(verifyJWT);
+    app.use(verifyJWT);
     // app.use(async (ctx, next) => handleError(ctx, next));
     app.use(bodyParser());
     app.use(router);

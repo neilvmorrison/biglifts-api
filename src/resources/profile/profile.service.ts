@@ -17,8 +17,13 @@ export class ProfileService {
     return profile;
   }
 
-  async createProfile(payload: Profile): Promise<Profile> {
-    return this.service.create(payload);
+  async createProfile(user_id: string, payload: Profile): Promise<Profile> {
+    const makePayload = () => ({
+      user: { id: user_id },
+      ...payload,
+    });
+    const createProfilePayload = makePayload();
+    return this.service.create(createProfilePayload);
   }
 
   async updateProfile(id: string, payload: Partial<Profile>): Promise<Profile> {

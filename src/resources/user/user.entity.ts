@@ -1,6 +1,7 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToOne } from "typeorm";
 import { IsEmail } from "class-validator";
 import { BaseEntity } from "../base/base.entity";
+import { Profile } from "../profile/profile.entity";
 
 @Entity()
 export class User extends BaseEntity {
@@ -8,6 +9,9 @@ export class User extends BaseEntity {
   @IsEmail()
   email: string;
 
-  @Column({ select: false })
+  @Column()
   password: string;
+
+  @OneToOne(() => Profile)
+  profile: Profile;
 }
