@@ -4,7 +4,7 @@ import bodyParser from "koa-bodyparser";
 import logger from "koa-logger";
 import "reflect-metadata";
 
-import { handleError } from "./resources/error/middleware";
+import { handleError } from "./resources/error/error.middleware";
 import { AppDataSource } from "./data-source";
 
 import router from "./routes";
@@ -18,7 +18,7 @@ AppDataSource.initialize()
 
     app.use(logger());
     app.use(verifyJWT);
-    // app.use(async (ctx, next) => handleError(ctx, next));
+    app.use(async (ctx, next) => handleError(ctx, next));
     app.use(bodyParser());
     app.use(router);
 

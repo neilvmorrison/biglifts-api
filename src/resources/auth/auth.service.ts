@@ -1,12 +1,11 @@
-import { User } from "../user/user.entity";
 import userService from "../user/user.service";
 import { compareHash } from "../../utils/hash";
-import { generateAccessToken } from "../../utils/token";
+import { generateAccessToken, generateRefreshToken } from "../../utils/token";
 import { HttpError } from "../error";
 
 export type AuthenticationResult = {
-  isAuthenticated: boolean;
-  token: string;
+  refresh_token: string;
+  access_token: string;
 };
 
 export class AuthService {
@@ -20,10 +19,12 @@ export class AuthService {
     }
     const matchingPass = await compareHash(password, user.password);
     if (user && matchingPass) {
-      const token = generateAccessToken(user.id);
+      console.log(user);
+      const access_token = generateAccessToken(user.id);
+      const refresh_token = generateRefreshToken();
       return {
-        isAuthenticated: true,
-        token,
+        refresh_token,
+        access_token,
       };
     } else {
       throw new HttpError(401, "Unauthorized");
@@ -31,6 +32,4 @@ export class AuthService {
   }
 
   async logoutUser(): Promise<void> {}
-
-  async hashToken(token: string): Promise<void> {}
 }

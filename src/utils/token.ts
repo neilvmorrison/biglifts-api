@@ -8,7 +8,7 @@ config();
 // issuer information etc. This is PoC.
 
 export function generateAccessToken(user_id: string): string {
-  return jwt.sign({ user_id }, process.env.JWT_SECRET, { expiresIn: "24h" });
+  return jwt.sign({ user_id }, process.env.JWT_SECRET, { expiresIn: "10000" });
 }
 
 export function generateRefreshToken(): string {
@@ -21,8 +21,6 @@ export function verifyToken(token: string): boolean {
 }
 
 export function getUserIdFromToken(token: string): string {
-  const isValid = verifyToken(token);
-  if (!isValid) throw new HttpError(401, "Token is Invalid");
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const decoded = jwt.decode(token, process.env.JWT_SECRET);
   return decoded.user_id;
 }

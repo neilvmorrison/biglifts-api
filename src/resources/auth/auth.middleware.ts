@@ -13,10 +13,10 @@ export async function verifyJWT(ctx: Context, next: Next) {
     if (!token) {
       throw new HttpError(401, unauthorizedMessage);
     }
-    const isValidToken = verifyToken(token);
-    if (isValidToken) {
+    try {
+      verifyToken(token);
       return next();
-    } else {
+    } catch (err) {
       throw new HttpError(401, unauthorizedMessage);
     }
   }

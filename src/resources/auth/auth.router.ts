@@ -11,4 +11,6 @@ router.post("/", async (ctx: Context) => {
   ctx.body = await authService.authenticateUser(email, password);
 });
 
+router.post("/refresh", async (ctx: Context) => {});
+
 export default router.routes();
